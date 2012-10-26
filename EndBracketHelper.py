@@ -42,5 +42,10 @@ class ShowMatchingBracket(sublime_plugin.EventListener):
         region = sublime.Region(line.begin(), begin_loc)
         match = view.substr(region).strip()
         sublime.status_message(match)
+        view.add_regions('blimey_begin_bracket', [region], 'blimey_start', 'dot', sublime.HIDDEN)
+        view.add_regions('blimey_end_bracket', [sublime.Region(cursor_loc, cursor_loc)], 'blimey_end', 'dot', sublime.HIDDEN)
       else:
         sublime.status_message('')
+    else:
+      view.erase_regions('blimey_begin_bracket')
+      view.erase_regions('blimey_end_bracket')
